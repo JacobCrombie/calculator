@@ -81,7 +81,13 @@ export default {
       this.operator = (a, b) => a + b;
       this.setPrevious();
     },
-    returnSum() {},
+    returnSum() {
+      this.current = `${this.operator(
+        parseFloat(this.previous),
+        parseFloat(this.current)
+      )}`;
+      this.previous = null;
+    },
   },
   components: {},
 };
