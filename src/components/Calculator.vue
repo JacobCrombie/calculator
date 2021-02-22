@@ -29,8 +29,10 @@ export default {
   name: "calculator",
   data() {
     return {
+      previous: null,
       current: "",
       operator: null,
+      operatorClicked: false,
     };
   },
   computed: {},
@@ -48,6 +50,10 @@ export default {
       this.current = `${parseFloat(this.current) / 100}`;
     },
     append(number) {
+      if (this.operatorClicked) {
+        this.current = "";
+        this.operatorClicked = false;
+      }
       this.current = `${this.current}${number}`;
     },
     decimal() {
@@ -55,17 +61,25 @@ export default {
         this.append(".");
       }
     },
+    setPrevious() {
+      this.previous = this.current;
+      this.operatorClicked = true;
+    },
     divide() {
       this.operator = (a, b) => a / b;
+      this.setPrevious();
     },
     multiply() {
       this.operator = (a, b) => a * b;
+      this.setPrevious();
     },
     subtract() {
       this.operator = (a, b) => a - b;
+      this.setPrevious();
     },
     add() {
       this.operator = (a, b) => a + b;
+      this.setPrevious();
     },
     returnSum() {},
   },
