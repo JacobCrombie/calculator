@@ -1,8 +1,8 @@
 <template>
   <div class="calculator">
-    <div class="display">4521.265</div>
-    <div class="btn">C</div>
-    <div class="btn">+/-</div>
+    <div class="display">{{ current || 0 }}</div>
+    <div @click="clear" class="btn">C</div>
+    <div @click="sign" class="btn">+/-</div>
     <div class="btn">%</div>
     <div class="btn operator">÷</div>
     <div class="btn">7</div>
@@ -28,10 +28,22 @@
 export default {
   name: "calculator",
   data() {
-    return {};
+    return {
+      current: "",
+    };
   },
   computed: {},
-  methods: {},
+  methods: {
+    clear() {
+      this.current = "";
+    },
+    sign() {
+      this.current =
+        this.current.charAt(0) === "-"
+          ? this.current.slice(1)
+          : `-${this.current}`;
+    },
+  },
   components: {},
 };
 </script>
@@ -39,6 +51,8 @@ export default {
 
 <style scoped>
 .calculator {
+  width: 450px;
+  margin: 0 auto;
   font-size: 40px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
